@@ -1,0 +1,12 @@
+.recommended {
+  display: flex;
+  align-items: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.recommended div {
+  border: 1px solid;
+
+  padding: 0.5em;
+  border-radius: 500%;
+}

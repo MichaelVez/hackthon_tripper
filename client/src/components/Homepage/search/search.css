@@ -1,0 +1,10 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.searchByDate,
+.searchByCountry {
+  border: 1px solid black;
+}
