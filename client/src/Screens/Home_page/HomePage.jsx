@@ -1,13 +1,13 @@
 import React from "react";
-import Calender from "./calender/Calender";
+import CalendarEvents from "./Calendar/Calendar";
 import Recommended from "./recomended/Recommended";
 import Search from "./search/Search";
 
-export default function Homepage() {
+export default function HomePage() {
   return (
     <div>
       <Search />
-      <Calender />
+      <CalendarEvents />
       <Recommended />
     </div>
   );
