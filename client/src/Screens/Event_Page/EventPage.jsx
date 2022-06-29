@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 function EventPage() {
   const [inputState, setInputState] = useState("");
-  const [comments, setComments] = useState([]);
+  const [commentsState, setCommentsState] = useState(["comment"]);
   const ref = useRef();
-  const Holiday = () => {
-    return (
-      <h2 className='holidayTitle ui header'>New Year's Day in Finland</h2>
-    );
+  const Holiday = ({ title }) => {
+    return <h2 className='holidayTitle ui header'>{title}</h2>;
   };
   const Flag = () => {
     return (
@@ -21,7 +20,7 @@ function EventPage() {
     return (
       <div className='holidayImage'>
         <img
-          className='ui medium rounded image'
+          className='ui big rounded image'
           src='https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg'
           alt=''
         />
@@ -40,11 +39,7 @@ function EventPage() {
       </div>
     );
   };
-  const Comments = () => {
-    return comments.map((comment) => {
-      return <div>{comment.text}</div>;
-    });
-  };
+
   const LikeComponent = () => {
     return (
       <div className='ui labeled button' tabIndex='0'>
@@ -61,7 +56,6 @@ function EventPage() {
   };
   const handleClick = async (e) => {
     console.log(inputState);
-    comments.push({ text: inputState });
   };
   const BlogComp = () => {
     return (
@@ -81,19 +75,20 @@ function EventPage() {
       </div>
     );
   };
+  const location = useLocation();
+  // location.state ? console.log(location.state) : null;
   return (
     <div className='eventPage ui container'>
       {/* <i className='finland flag' id='flags' /> */}
       <div className='row'>
         <Flag />
-        <Holiday />
+        <Holiday title={location.state ? location.state.event.title : ""} />
       </div>
       <ImageComp />
       <Description />
       <LikeComponent />
-
-      <Comments />
       <BlogComp />
+      {/* {location.state} */}
     </div>
   );
 }
