@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 function EventPage() {
-  const Holiday = () => {
-    return (
-      <h2 className='holidayTitle ui header'>New Year's Day in Finland</h2>
-    );
+  const [inputState, setInputState] = useState("");
+  const [commentsState, setCommentsState] = useState(["comment"]);
+  const ref = useRef();
+  const Holiday = ({ title }) => {
+    return <h2 className='holidayTitle ui header'>{title}</h2>;
   };
   const Flag = () => {
     return (
@@ -17,7 +20,7 @@ function EventPage() {
     return (
       <div className='holidayImage'>
         <img
-          className='ui medium rounded image'
+          className='ui big rounded image'
           src='https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg'
           alt=''
         />
@@ -36,36 +39,56 @@ function EventPage() {
       </div>
     );
   };
-  const Comments = () => {
-    return <div className='holidayComments'>{}</div>;
+
+  const LikeComponent = () => {
+    return (
+      <div className='ui labeled button' tabIndex='0'>
+        <div className='ui red button'>
+          <i className='heart icon'></i> Like
+        </div>
+        <a className='ui basic red left pointing label'>1,048</a>
+      </div>
+    );
+  };
+  const handleChange = async (e) => {
+    await setInputState(e.target.value);
+    ref.current.focus();
+  };
+  const handleClick = async (e) => {
+    console.log(inputState);
   };
   const BlogComp = () => {
     return (
       <div className='ui input holidayBlog'>
         <div className='ui action input'>
-          <input type='text' placeholder='Comment on this' />
-          <button className='ui button'>Comment</button>
-        </div>
-        <div className='ui labeled button' tabindex='0'>
-          <div className='ui red button'>
-            <i className='heart icon'></i> Like
-          </div>
-          <a className='ui basic red left pointing label'>1,048</a>
+          <input
+            type='text'
+            onChange={handleChange}
+            value={inputState}
+            ref={ref}
+            placeholder='Comment on this'
+          />
+          <button className='ui button' onClick={handleClick}>
+            Comment
+          </button>
         </div>
       </div>
     );
   };
+  const location = useLocation();
+  // location.state ? console.log(location.state) : null;
   return (
     <div className='eventPage ui container'>
       {/* <i className='finland flag' id='flags' /> */}
       <div className='row'>
         <Flag />
-        <Holiday />
+        <Holiday title={location.state ? location.state.event.title : ""} />
       </div>
       <ImageComp />
       <Description />
+      <LikeComponent />
       <BlogComp />
-      <Comments />
+      {/* {location.state} */}
     </div>
   );
 }

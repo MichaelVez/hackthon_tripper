@@ -34,3 +34,16 @@
   left: -5rem;
   color: red;
 }
+
+
+#country {
+  width: 500px;
+}
+
+.ui.category.search  {
+  height: 60%;
+}
+
+.ui.secondary.button.find-events {
+  margin-bottom: 3.5px;
+}

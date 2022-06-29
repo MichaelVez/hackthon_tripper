@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./search.css";
 import { useTranslation } from "react-i18next";
 
@@ -32,15 +32,25 @@ export default function Search({ handleSearch }) {
   };
 
   return (
-    <div className="search-container">
-      <SearchInput id={"country"} searchTerm={"Country"} inputValue={inputValue} />
-      <SearchInput id={"checkin"} searchTerm={"Date"} check={t("Checkin.1")} inputValue={inputValue} />
-      <SearchInput id={"checkout"} searchTerm={"Date"} check={t("Checkout.1")} inputValue={inputValue} />
-
-      <div className="submit-search-contianer">
-        <button onClick={handleClickSearch}>Find Events</button>
-        {isErrorSearch && <div className="error-search-message">Please fill all search field</div>}
+    <div className="searchBar">
+      <div className="ui secondary pointing menu">
+        <li className="item">
+          <SearchInput id={"country"} searchTerm={"Country"} inputValue={inputValue} />
+        </li>
+        <li className="item">
+          <SearchInput id={"checkin"} searchTerm={"Date"} check={t("Checkin.1")} inputValue={inputValue} />
+        </li>
+        <li className="item">
+          <SearchInput id={"checkout"} searchTerm={"Date"} check={t("Checkout.1")} inputValue={inputValue} />
+        </li>
+        <li className="item">
+          <div className="ui category search">
+            <button className="ui secondary button find-events" onClick={handleClickSearch}>Find Events</button>
+            {isErrorSearch && <div className="error-search-message">Please fill all search field</div>}
+          </div>
+        </li>
       </div>
+
     </div>
   );
 }
@@ -50,12 +60,14 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
   const [value, setValue] = useState("");
 
   const onChange = ({ target: { value, id } }) => {
-    setValue(value.toLowerCase());
-    // console.log(value);
-    inputValue(value, id);
+    setValue(value);
+
+    inputValue(value.toLowerCase(), id);
   };
 
+
   return (
+
     <div className="ui category search">
       <div className="ui icon input date-container">
         {searchTerm === "Date" && <label>{check}</label>}
@@ -63,6 +75,9 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
         {searchTerm !== "Date" && <i className="search icon"></i>}
       </div>
       <div className="results"></div>
+
     </div>
+
+
   );
 }
