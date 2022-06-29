@@ -11,6 +11,10 @@ export default function HomePage() {
   const [countryName, setCountryName] = useState("");
   const [flag, setFlag] = useState("");
 
+  const setSpinnerUp = (state) => {
+    setSpinner(state);
+  };
+
   const handleSearch = async (searchObj) => {
     // console.log(searchObj);
     setCheckInDate(searchObj.checkin);
@@ -18,6 +22,8 @@ export default function HomePage() {
     try {
       setSpinner(true);
       const { data } = await apiAPI.post("/holydays", searchObj);
+
+      setSpinner(false);
       // console.log(data);
       setFlag(data.flag);
       setSpinner(false);
@@ -38,6 +44,7 @@ export default function HomePage() {
         checkInDate={checkInDate}
         spinner={spinner}
         events={events}
+        setSpinnerUp={setSpinnerUp}
       />
       <Recommended />
     </div>
