@@ -4,8 +4,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const URL = `${process.env.MONGODB_URI}`;
 
-console.log(URL);
-
 mongoose.connect(URL, (error, mongoDBInstance) => {
   if (error) {
     console.log(error.message);
