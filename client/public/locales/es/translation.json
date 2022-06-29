@@ -4,5 +4,20 @@
   },
   "Checkout": {
     "1": "verificar"
+  },
+  "navbar": {
+    "homepage": "Hogar",
+    "login": "iniciar sesión",
+    "signup": "inscribirse",
+    "events": "eventos"
+  },
+  "Toolbar": {
+    "today": "Este Dia",
+    "back": "espalda",
+    "next": "Siguiente",
+    "month": "mes",
+    "week": "semana",
+    "day": "día",
+    "agenda": "Agenda"
   }
 }

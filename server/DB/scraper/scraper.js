@@ -36,7 +36,7 @@ function addCountryToDB(tableRow, countryArg) {
       countryDocument.events.push({
         name: row[2],
         type: row[3],
-        date: moment(row[0], "MMM DD YYYY").format("DD.M.YYYY"),
+        date: moment(row[0], "MMM DD YYYY").format("M.DD.YYYY"),
       });
     }
   });
