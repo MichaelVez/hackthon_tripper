@@ -1,7 +1,7 @@
 import React from "react";
 
-function Eventpage() {
+function EventPage() {
   return <div>Eventpage</div>;
 }
 
-export default Eventpage;
+export default EventPage;
