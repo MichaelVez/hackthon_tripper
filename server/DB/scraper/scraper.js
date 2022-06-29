@@ -28,7 +28,9 @@ async function crawllerEventsPerCountry(countryArg) {
     });
   });
 
-  const country = new Country(addCountryToDB(tableRowElement, countryArg));
+  const flag = await page.$eval(".headline-banner__wrap img", (img) => img.src);
+
+  const country = new Country(addCountryToDB(tableRowElement, countryArg, flag));
   await country.save();
 
   await browser.close();
@@ -36,9 +38,10 @@ async function crawllerEventsPerCountry(countryArg) {
 }
 
 //* Utils for cralwer
-function addCountryToDB(tableRow, countryArg) {
+function addCountryToDB(tableRow, countryArg, flag) {
   const countryDocument = {
     country: countryArg,
+    flag: flag,
     events: [],
   };
   tableRow.forEach((row) => {
