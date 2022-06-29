@@ -1,10 +1,26 @@
-.search {
+.search-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-.searchByDate,
+
+.search-container > * {
+  margin: 1rem;
+}
+
+.date-container {
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-around; */
+}
+
+.date-container > * {
+  margin: 0 0.5rem;
+}
+
+/* .searchByDate,
 .searchByCountry {
   border: 1px solid black;
-}
+} */

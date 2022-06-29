@@ -7,6 +7,7 @@ export default function Homepage() {
   return (
     <div>
       <Search />
+
       <Calender />
       <Recommended />
     </div>
