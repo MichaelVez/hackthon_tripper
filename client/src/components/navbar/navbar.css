@@ -1,13 +1,45 @@
 .navbar {
   width: 100%;
-  height: 7vh;
+  height: 80px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid black;
+  /* justify-content: space-between; */
+
+
 }
+
 .navbarlogo {
   color: rgb(255, 208, 0);
   font-weight: 800;
   padding-left: 10px;
+  height: 100%;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
 }
+
+.ui.inverted.segment, .ui.primary.inverted.segment {
+  width: 100%;
+  height: 100%;
+  border-radius: unset;
+  display: flex;
+  align-items: center;
+
+
+}
+
+.ui.inverted.secondary.pointing.menu {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navbar-right-side {
+  display: flex;
+  height: 100%;
+  gap: 50px;
+}
+
+.navber-left-side {
+  margin-left: 400px;
+}
+
