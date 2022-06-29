@@ -20,7 +20,7 @@ const localizer = dateFnsLocalizer({
   locales
 });
 
-const events = [
+const eventsArr = [
   {
     title: "Test Holiday 1 Brazil",
     start: new Date(2022, 6, 1),
@@ -45,11 +45,11 @@ const events = [
 const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`
 
 
-function CalendarEvents() {
-  const [allEvents, setAllEvents] = useState(events);
+function CalendarEvents({events}) {
+  const [allEvents, setAllEvents] = useState(eventsArr);
   const [date, setDate] = useState(initialDate);
 
-
+  
   // Click Event/Holiday
   const handleClickEvent = (event) => {
     console.log(event);
@@ -59,6 +59,15 @@ function CalendarEvents() {
   const handleChangeDate = ({ target: { value } }) => {
     setDate(value);
   }
+
+  useEffect(()=> {
+    const eventsFormatCalendar = events.map((event) => {
+      return { title: event.name, start: new Date(event.date), end: new Date(event.date)}
+    })
+    setAllEvents(eventsFormatCalendar);
+
+  },[events])
+
 
   return (
 
