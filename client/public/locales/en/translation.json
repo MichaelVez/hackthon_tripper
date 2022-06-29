@@ -15,7 +15,8 @@
     "homepage": "Home",
     "login": "Log in",
     "signup": "sign up",
-    "events": "events"
+    "events": "events",
+    "logout": "Log out"
   },
   "Toolbar": {
     "today": "Today",
