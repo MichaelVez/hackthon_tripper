@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const Country = require("../models/scraped.country.model.js");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const moment = require("moment");
 
 // * Crawller to fetch event data
 async function crawllerEventsPerCountry(countryArg) {
@@ -32,7 +33,11 @@ function addCountryToDB(tableRow, countryArg) {
   };
   tableRow.forEach((row) => {
     if (row[0]) {
-      countryDocument.events.push({ name: row[2], type: row[3], date: row[0] });
+      countryDocument.events.push({
+        name: row[2],
+        type: row[3],
+        date: moment(row[0], "MMM DD YYYY").format("DD.M.YYYY"),
+      });
     }
   });
 
