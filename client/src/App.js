@@ -7,14 +7,14 @@ import HomePage from "./Screens/Home_page/HomePage";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Navbar />
       {/* <Language /> */}
       <Routes>
-        <Route path="/event" exact element={<EventPage />} />
-        <Route path="/" exact element={<HomePage />} />
+        <Route path='/event' element={<EventPage />} />
+        <Route path='/' exact element={<HomePage />} />
         {/* 404 page */}
-        <Route path="/*" element={<HomePage />} />
+        <Route path='/*' element={<HomePage />} />
       </Routes>
     </div>
   );
