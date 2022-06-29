@@ -21,33 +21,15 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const events = [
-  {
-    title: "Test Holiday 1 Brazil",
-    start: new Date(2022, 6, 1),
-    end: new Date(2022, 6, 3),
-    link: "http://something.com",
-  },
-  {
-    title: "Test Holiday 2 Brazil",
-    start: new Date(2022, 6, 12),
-    end: new Date(2022, 6, 13),
-  },
-  {
-    title: "Test Holiday 3 Brazil",
-    start: new Date(2022, 7, 12),
-    end: new Date(2022, 7, 20),
-  },
-];
 
-const initialDate = `${new Date().getFullYear().toString()}-0${(
-  new Date().getMonth() + 1
-).toString()}`;
 
-function CalendarEvents() {
-  const [allEvents, setAllEvents] = useState(events);
+const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
+
+function CalendarEvents({events}) {
+  const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
 
+  
   // Click Event/Holiday
   const handleClickEvent = (event) => {
     console.log(event);
@@ -57,6 +39,16 @@ function CalendarEvents() {
   const handleChangeDate = ({ target: { value } }) => {
     setDate(value);
   };
+
+  useEffect(()=> {
+    const eventsFormatCalendar = events.map((event) => {
+      return { title: event.name, start: new Date(event.date), end: new Date(event.date)}
+    })
+    console.log(eventsFormatCalendar);
+    setAllEvents(eventsFormatCalendar);
+
+  },[events])
+
 
   return (
     <div className="calender-container">

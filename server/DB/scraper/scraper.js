@@ -5,7 +5,7 @@ const moment = require("moment");
 
 // * Crawller to fetch event data
 async function crawllerEventsPerCountry(countryArg) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(`https://www.timeanddate.com/holidays/${countryArg}/`);
 
@@ -36,7 +36,7 @@ function addCountryToDB(tableRow, countryArg) {
       countryDocument.events.push({
         name: row[2],
         type: row[3],
-        date: moment(row[0], "MMM DD YYYY").format("DD.M.YYYY"),
+        date: moment(row[0], "MMM DD YYYY").format("M.DD.YYYY"),
       });
     }
   });
