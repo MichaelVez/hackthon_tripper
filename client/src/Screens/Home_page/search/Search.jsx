@@ -99,7 +99,7 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
         <input
           id={id}
           type={type}
-          placeholder={`${t("search.1")}...`}
+          placeholder={`${t("search.1")}`}
           value={value}
           onChange={onChange}
         />
