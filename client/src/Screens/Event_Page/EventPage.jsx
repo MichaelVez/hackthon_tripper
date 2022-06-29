@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useState } from "react";
 import "./eventPage.css";
 function EventPage() {
+  const [inputState, setInputState] = useState("");
+  const [comments, setComments] = useState([]);
+  const ref = useRef();
   const Holiday = () => {
     return (
       <h2 className='holidayTitle ui header'>New Year's Day in Finland</h2>
@@ -37,20 +41,42 @@ function EventPage() {
     );
   };
   const Comments = () => {
-    return <div className='holidayComments'>{}</div>;
+    return comments.map((comment) => {
+      return <div>{comment.text}</div>;
+    });
+  };
+  const LikeComponent = () => {
+    return (
+      <div className='ui labeled button' tabIndex='0'>
+        <div className='ui red button'>
+          <i className='heart icon'></i> Like
+        </div>
+        <a className='ui basic red left pointing label'>1,048</a>
+      </div>
+    );
+  };
+  const handleChange = async (e) => {
+    await setInputState(e.target.value);
+    ref.current.focus();
+  };
+  const handleClick = async (e) => {
+    console.log(inputState);
+    comments.push({ text: inputState });
   };
   const BlogComp = () => {
     return (
       <div className='ui input holidayBlog'>
         <div className='ui action input'>
-          <input type='text' placeholder='Comment on this' />
-          <button className='ui button'>Comment</button>
-        </div>
-        <div className='ui labeled button' tabindex='0'>
-          <div className='ui red button'>
-            <i className='heart icon'></i> Like
-          </div>
-          <a className='ui basic red left pointing label'>1,048</a>
+          <input
+            type='text'
+            onChange={handleChange}
+            value={inputState}
+            ref={ref}
+            placeholder='Comment on this'
+          />
+          <button className='ui button' onClick={handleClick}>
+            Comment
+          </button>
         </div>
       </div>
     );
@@ -64,8 +90,10 @@ function EventPage() {
       </div>
       <ImageComp />
       <Description />
-      <BlogComp />
+      <LikeComponent />
+
       <Comments />
+      <BlogComp />
     </div>
   );
 }
