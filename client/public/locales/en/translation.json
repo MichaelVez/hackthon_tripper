@@ -4,5 +4,20 @@
   },
   "Checkout": {
     "1": "Check out"
+  },
+  "navbar": {
+    "homepage": "Home",
+    "login": "Log in",
+    "signup": "sign up",
+    "events": "events"
+  },
+  "Toolbar": {
+    "today": "Today",
+    "back": "Back",
+    "next": "Next",
+    "month": "Month",
+    "week": "Week",
+    "day": "Day",
+    "agenda": "Agenda"
   }
 }
