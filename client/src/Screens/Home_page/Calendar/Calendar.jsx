@@ -7,7 +7,6 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Spinner from "../../../components/Spinner/Spinner";
-import "moment/locale/fr";
 import { useTranslation } from "react-i18next";
 import "./Calendar.css";
 
