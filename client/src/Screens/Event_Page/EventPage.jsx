@@ -1,15 +1,14 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 
-import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
   const [commentsState, setCommentsState] = useState(["comment"]);
-  const { id } = useParams();
+
   const ref = useRef();
   const Holiday = ({ title }) => {
     return <h2 className="holidayTitle ui header">{title}</h2>;
@@ -24,18 +23,16 @@ function EventPage() {
   };
   const ImageComp = () => {
     return (
-
       <div class="ui segment">
-      <div className='holidayImage'>
-        <img
-          className="ui big rounded image"
-          src="https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg"
-          alt=""
-        />
-      </div>
+        <div className="holidayImage">
+          <img className="ui big rounded image" src="https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg" alt="" />
+        </div>
       </div>
     );
   };
+  useEffect(() => {
+    console.log(location);
+  }, []);
   const Description = () => {
     return (
       <div className="holidayDescription">
@@ -87,12 +84,13 @@ function EventPage() {
       {/* <i className='finland flag' id='flags' /> */}
       <div className="row">
         <Flag />
-        <Holiday title={location.state ? location.state.event.title : ""} />
+        {/* <Holiday title={location.state ? location.state.event.title : ""} /> */}
       </div>
       <ImageComp />
       <Description />
       {/* <LikeComponent /> */}
       <BlogComp />
+      {location.state ? console.log(location.state) : ""}
       {/* {location.state} */}
     </div>
   );
