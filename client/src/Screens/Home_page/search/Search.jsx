@@ -23,7 +23,7 @@ function SearchInput({ searchTerm, check }) {
         <input type={type} placeholder={`Search ${searchTerm}...`} />
         <i className="search icon"></i>
       </div>
-      <div class="results"></div>
+      <div className="results"></div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Language />
+      {/* <Language /> */}
       <Routes>
         <Route path="/event" exact element={<EventPage />} />
         <Route path="/" exact element={<HomePage />} />
