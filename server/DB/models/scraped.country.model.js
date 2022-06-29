@@ -12,6 +12,9 @@ const countrySchema = new mongoose.Schema({
       name: {
         type: String,
       },
+      link: {
+        type: String,
+      },
       type: {
         type: String,
       },

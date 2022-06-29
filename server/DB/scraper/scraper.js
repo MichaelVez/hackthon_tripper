@@ -7,18 +7,28 @@ const moment = require("moment");
 async function crawllerEventsPerCountry(countryArg) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto(`https://www.timeanddate.com/holidays/${countryArg}/`);
+  await page.goto(`https://www.timeanddate.com/holidays/${countryArg.toLowerCase()}/`);
 
-  const tr = await page.$$eval("tr", (tr) => {
-    return tr.map((x) => {
-      if (x.children) {
-        return [...x.children].map((c) => c.textContent);
+  const tableRowElement = await page.$$eval("tr", (tr) => {
+    return tr.map((row) => {
+      if (row.children) {
+        return [...row.children].map((c) => {
+          if (c.innerHTML.includes("<")) {
+            const web = "https://www.timeanddate.com";
+            const cut1 = c.innerHTML.indexOf(">");
+            const str2 = web + c.innerHTML.slice(9, cut1 - 1);
+            const cut2 = c.innerHTML.lastIndexOf("<");
+            const str3 = c.innerHTML.slice(cut1 + 1, cut2);
+            return [str3, str2];
+          }
+
+          return c.innerHTML;
+        });
       }
-      return x.textContent;
     });
   });
 
-  const country = new Country(addCountryToDB(tr, countryArg));
+  const country = new Country(addCountryToDB(tableRowElement, countryArg));
   await country.save();
 
   await browser.close();
@@ -32,9 +42,10 @@ function addCountryToDB(tableRow, countryArg) {
     events: [],
   };
   tableRow.forEach((row) => {
-    if (row[0]) {
+    if (row[0] && row[2]) {
       countryDocument.events.push({
-        name: row[2],
+        name: row[2][0],
+        link: row[2][1],
         type: row[3],
         date: moment(row[0], "MMM DD YYYY").format("M.DD.YYYY"),
       });
@@ -60,8 +71,6 @@ async function exctractData(countryName) {
   }
 }
 
-// ! Moshe :The function u need to use is a promise that return country
-// ! The line bellow is example how to use this function
 // exctractData("egypt").then((country) => console.log(country));
 
 // =======================================================================================

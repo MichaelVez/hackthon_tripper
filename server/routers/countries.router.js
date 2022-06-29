@@ -10,7 +10,7 @@ router.post("/countries/holydays", async (req, res) => {
     console.log(req.body);
     res.send(data);
   } catch (error) {
-    res.send({ error, error2: "Not avilable data" });
+    res.send({ error: error.message, error2: "Not avilable data" });
   }
 });
 
