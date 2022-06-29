@@ -8,11 +8,11 @@ import { useTranslation } from "react-i18next";
 function EventPage() {
   const [inputState, setInputState] = useState("");
   const [commentsState, setCommentsState] = useState(["comment"]);
-  const [ eventInfo, setEventInfo ] = useState({});
+  const [eventInfo, setEventInfo] = useState({});
 
   const ref = useRef();
-  const Holiday = ({ title }) => {
-    return <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.title}</h2>;
+  const Holiday = () => {
+    return <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>;
   };
 
   useEffect(() => {
@@ -41,8 +41,9 @@ function EventPage() {
   const Description = () => {
     return (
       <div className="holidayDescription">
-        {t("blog.event")}
-        <p>{Object.keys(eventInfo).length > 0 && eventInfo.description}</p>
+        <div class="ui raised segment">
+          <p>{Object.keys(eventInfo).length > 0 && eventInfo.description}</p>
+        </div>
       </div>
     );
   };
@@ -89,13 +90,12 @@ function EventPage() {
       {/* <i className='finland flag' id='flags' /> */}
       <div className="row">
         <Flag />
-        {/* <Holiday title={location.state ? location.state.event.title : ""} /> */}
+        <Holiday />
       </div>
       <ImageComp />
       <Description />
       <LikeComponent />
       <BlogComp />
-      {location.state ? console.log(location.state) : ""}
       {/* {location.state} */}
     </div>
   );
