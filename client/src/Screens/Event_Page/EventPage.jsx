@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
-import { useParams } from "react-router-dom";
 
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
@@ -11,23 +12,25 @@ function EventPage() {
   const { id } = useParams();
   const ref = useRef();
   const Holiday = ({ title }) => {
-    return <h2 className='holidayTitle ui header'>{title}</h2>;
+    return <h2 className="holidayTitle ui header">{title}</h2>;
   };
+  const { t } = useTranslation();
   const Flag = () => {
     return (
-      <div className='holidayFlag'>
-        <img src='https://c.tadst.com/gfx/n/fl/48/fi.png' alt='' />
+      <div className="holidayFlag">
+        <img src="https://c.tadst.com/gfx/n/fl/48/fi.png" alt="" />
       </div>
     );
   };
   const ImageComp = () => {
     return (
+
       <div class="ui segment">
       <div className='holidayImage'>
         <img
-          className='ui big rounded image'
-          src='https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg'
-          alt=''
+          className="ui big rounded image"
+          src="https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg"
+          alt=""
         />
       </div>
       </div>
@@ -35,24 +38,20 @@ function EventPage() {
   };
   const Description = () => {
     return (
-      <div className='holidayDescription'>
-        Event Description:
-        <p>
-          New Year's Day, which is on January 1, marks the start of the year in
-          the Gregorian calendar and it's a public holiday in many countries.
-          Count down to the New Year, no matter where you are.
-        </p>
+      <div className="holidayDescription">
+        {t("blog.event")}
+        <p>{t("blog.Description")}</p>
       </div>
     );
   };
 
   const LikeComponent = () => {
     return (
-      <div className='ui labeled button' tabIndex='0'>
-        <div className='ui red button'>
-          <i className='heart icon'></i> Like
+      <div className="ui labeled button" tabIndex="0">
+        <div className="ui red button">
+          <i className="heart icon"></i> Like
         </div>
-        <a className='ui basic red left pointing label'>1,048</a>
+        <a className="ui basic red left pointing label">1,048</a>
       </div>
     );
   };
@@ -65,16 +64,16 @@ function EventPage() {
   };
   const BlogComp = () => {
     return (
-      <div className='ui input holidayBlog'>
-        <div className='ui action input'>
+      <div className="ui input holidayBlog">
+        <div className="ui action input">
           <input
-            type='text'
+            type="text"
             onChange={handleChange}
             value={inputState}
             ref={ref}
-            placeholder='Comment on this'
+            placeholder={t("blog.commentOnThis")}
           />
-          <button className='ui button' onClick={handleClick}>
+          <button className="ui button" onClick={handleClick}>
             Comment
           </button>
         </div>
@@ -84,9 +83,9 @@ function EventPage() {
   const location = useLocation();
   // location.state ? console.log(location.state) : null;
   return (
-    <div className='eventPage ui container'>
+    <div className="eventPage ui container">
       {/* <i className='finland flag' id='flags' /> */}
-      <div className='row'>
+      <div className="row">
         <Flag />
         <Holiday title={location.state ? location.state.event.title : ""} />
       </div>
