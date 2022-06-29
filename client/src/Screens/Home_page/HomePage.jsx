@@ -8,10 +8,12 @@ export default function HomePage() {
   const [ events, setEvents ] = useState([]);
   const [ spinner, setSpinner ] = useState(false);
   const [ checkInDate, setCheckInDate ] = useState(null)
+  const [ countryName, setCountryName ] = useState('');
 
   const handleSearch = async (searchObj) => {
     // console.log(searchObj);
     setCheckInDate(searchObj.checkin);
+    setCountryName(searchObj.country);
     try {
       setSpinner(true)
       const { data } = await apiAPI.post("/holydays", searchObj);
@@ -27,7 +29,7 @@ export default function HomePage() {
   return (
     <div>
       <Search handleSearch={handleSearch} />
-      <CalendarEvents checkInDate={checkInDate} spinner={spinner} events={events}/>
+      <CalendarEvents countryName={countryName} checkInDate={checkInDate} spinner={spinner} events={events}/>
       <Recommended />
     </div>
   );
