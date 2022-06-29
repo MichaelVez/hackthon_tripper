@@ -62,7 +62,7 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
         <input id={id} type={type} placeholder={`Search ${searchTerm}...`} value={value} onChange={onChange} />
         {searchTerm !== "Date" && <i className="search icon"></i>}
       </div>
-      <div class="results"></div>
+      <div className="results"></div>
     </div>
   );
 }
