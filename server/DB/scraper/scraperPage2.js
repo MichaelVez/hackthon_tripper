@@ -17,7 +17,27 @@ async function getDataPerCountry(url) {
 }
 
 async function getEventsDataAndUpdateDb(countryName, eventId, eventLink) {
-  // scrapper will return src and desc
+  const holidayOne = await Country.findOne(
+    {
+      country: countryName,
+    },
+    {
+      events: {
+        $elemMatch: {
+          _id: eventId,
+        },
+      },
+    }
+  );
+
+  //   console.log(holidayOne.events[0].image);
+  //   console.log(holidayOne.events[0]);
+  if (holidayOne.events[0].image) {
+    console.log("Data-2 took from DB");
+    return holidayOne;
+  }
+
+  //* scrapper will return src and desc
   const dataArr = await getDataPerCountry(eventLink);
 
   const data = await Country.findOneAndUpdate(
@@ -44,6 +64,7 @@ async function getEventsDataAndUpdateDb(countryName, eventId, eventLink) {
     }
   );
 
+  console.log("Data-2 took from scrapper and update db for next time");
   return holiday;
 }
 
