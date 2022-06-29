@@ -1,33 +1,37 @@
-import React from 'react'
-import { Dropdown } from 'semantic-ui-react'
-import './LanguageSelect.css'
+import React from "react";
+import { Dropdown } from "semantic-ui-react";
+import "./LanguageSelect.css";
+import i18next from "i18next";
 const languageOptions = [
-  { key: 'عربيه', text: 'عربيه', value: 'عربيه' },
-  { key: 'עברית', text: 'עברית', value: 'עברית' },
-  { key: 'English', text: 'English', value: 'English' },
-  { key: 'Русский', text: 'Русский', value: 'Русский' },
-  { key: 'español', text: 'español', value: 'español' },
-]
+  { key: "عربيه", text: "عربيه", value: "ar" },
+  { key: "עברית", text: "עברית", value: "he" },
+  { key: "English", text: "English", value: "en" },
+  { key: "Русский", text: "Русский", value: "ru" },
+  { key: "español", text: "español", value: "es" },
+];
 
 const DropdownExampleSearchDropdown = () => {
-
- const handleChangeLang = (event) => {
-  const languageSelected = event.target.innerText;
- }
+  const handleChangeLang = (event) => {
+    const languageSelected = event.target.innerText;
+    const find = languageOptions.find((lang) => {
+      return lang.text === languageSelected;
+    });
+    i18next.changeLanguage(find.value);
+  };
 
   return (
     <Dropdown
       button
-      className='icon'
+      className="icon"
       floating
       labeled
-      icon='world'
+      icon="world"
       options={languageOptions}
       search
       onChange={handleChangeLang}
-      text='Select Language'
+      text="Select Language"
     />
-  )
-} 
+  );
+};
 
-export default DropdownExampleSearchDropdown
+export default DropdownExampleSearchDropdown;
