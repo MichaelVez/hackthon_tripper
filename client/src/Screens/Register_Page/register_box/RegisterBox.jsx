@@ -2,11 +2,12 @@ import React, { useContext, useState } from 'react'
 
 // import { createNewUser, loginUser } from '../../API/ServerAPI/server.users';
 import { appContext } from '../../../context/appContext';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner'
 
 import './RegisterBox.css'
 import { Link } from 'react-router-dom';
+import { createNewUser } from '../../../api/users.api';
 
 const initialState = {
   firstName: '',
@@ -21,9 +22,9 @@ function RegisterBox() {
   const [formRegister, setFormRegister] = useState(initialState);
   const [errorMsg, setErrorMsg] = useState(false)
   const [spinner, setSpinner] = useState(false)
-  // let history = useHistory();
+  const navigate = useNavigate();
   // Global State
-  const { setToken } = useContext(appContext);
+  const { setToken, setUserSignIn } = useContext(appContext);
 
   const handleChange = ({ target: { name: nameInput, value } }) => {
     setFormRegister({ ...formRegister, [nameInput]: value })
@@ -33,18 +34,20 @@ function RegisterBox() {
 
   const handleClick = async (event) => {
     event.preventDefault()
-    // const { firstName, lastName, age, email, password } = formRegister;
-    // if (!firstName || !lastName || !age || !email || !password) return setErrorMsg('Please enter all fields');
+    const { firstName, lastName, age, email, password } = formRegister;
+    if (!firstName || !lastName || !age || !email || !password) return setErrorMsg('Please enter all fields');
 
-    // setSpinner(true)
-    // const userCreated = await createNewUser({ ...formRegister, age: +age });
-    // setSpinner(false)
-    // if (userCreated.response && userCreated.response.status === 400) return setErrorMsg(userCreated.response.statusText);
+    setSpinner(true)
+    const userCreated = await createNewUser({ ...formRegister, age: +age });
+    setSpinner(false)
+    if (userCreated.response && userCreated.response.status === 400) return setErrorMsg(userCreated.response.statusText);
 
-    // const userToken = userCreated.token;
-    // setToken(userToken);
-    // localStorage.setItem('token', userToken);
-    // history.push('/')
+    const userToken = userCreated.token;
+    setToken(userToken);
+    setUserSignIn(userCreated.user);
+    localStorage.setItem('token', userToken);
+    localStorage.setItem('user', userCreated.user);
+    navigate('/');
   }
 
   return (
