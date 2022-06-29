@@ -52,9 +52,9 @@ function CalendarEvents({events}) {
 
   return (
     <div className="calender-container">
-      <div className="calender-change-date">
+      {/* <div className="calender-change-date">
         <input type="month" value={date} onChange={handleChangeDate} />
-      </div>
+      </div> */}
       <div className="calender-main">
         <Calendar
           localizer={localizer}
