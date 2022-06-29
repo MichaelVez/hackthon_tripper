@@ -31,8 +31,20 @@ async function getEventsDataAndUpdateDb(countryName, eventId, eventLink) {
     },
     { $set: { "events.$.image": dataArr[0], "events.$.description": dataArr[1] } }
   );
+  const holiday = await Country.findOne(
+    {
+      country: countryName,
+    },
+    {
+      events: {
+        $elemMatch: {
+          _id: eventId,
+        },
+      },
+    }
+  );
 
-  return data;
+  return holiday;
 }
 
 module.exports = getEventsDataAndUpdateDb;
