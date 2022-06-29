@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const Country = require("../models/scraped.country.model.js");
+const Country = require("../../models/scraped.country.model.js");
 // const mongoose = require("mongoose");
 // const moment = require("moment");
 // const express = require("express");
