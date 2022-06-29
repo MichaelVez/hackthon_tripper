@@ -6,20 +6,23 @@ const PORT = 8000;
 const app = express();
 
 async function crawllerEventsPerCountry(countryArg) {
-  const url = `https://www.timeanddate.com/holidays/${countryArg}/`;
+  const url = `https://www.timeanddate.com/holidays/germany/new-year-day`;
   const { data } = await axios(url); //html
   const $ = cheerio.load(data);
   const arr = [];
 
   // console.log(typeof $("tr", data).parent.Element);
 
-  $("tr", data).each(function () {
-    const row = $(this).text();
+  $("img", data).each(function () {
+    // const row = $(this).text();
+    const row = $(this);
+    const image = row.find("img").attr("src");
     // console.log(row);
-
-    if (row) {
-      arr.push(row);
-    }
+    // console.log(image);
+    // if (row) {
+    //   arr.push(row);
+    // }
+    console.log(image);
   });
   console.log(arr);
 }

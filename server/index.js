@@ -4,6 +4,31 @@ const dotenv = require("dotenv");
 dotenv.config();
 const URL = `${process.env.MONGODB_URI}`;
 
+// *test
+// const Country = require("../server/DB/models/scraped.country.model");
+// async function test() {
+//   const data = await Country.findOne(
+//     {
+//       // _id: "62bc7a08633e5888ed591896",
+//       country: "germany",
+//     },
+//     {
+//       events: {
+//         $elemMatch: {
+//           _id: "62bc7f70b4f6f5e4b36ac76e",
+//         },
+//       },
+//     }
+//   );
+//   data.events[0].image = "abcd";
+//   await data.save();
+//   console.log(data.events[0]);
+// }
+
+// test();
+
+// // *test
+
 mongoose.connect(URL, (error, mongoDBInstance) => {
   if (error) {
     console.log(error.message);
