@@ -22,9 +22,9 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
-
-
+const initialDate = `${new Date().getFullYear().toString()}-0${(
+  new Date().getMonth() + 1
+).toString()}`;
 
 function CalendarEvents({ events, spinner, checkInDate }) {
   let navigate = useNavigate();
@@ -40,9 +40,7 @@ function CalendarEvents({ events, spinner, checkInDate }) {
   // Choose Date
   useEffect(() => {
     setDate(checkInDate);
-
   }, [checkInDate]);
-
 
   useEffect(() => {
     const eventsFormatCalendar = events.map((event) => {
@@ -57,20 +55,17 @@ function CalendarEvents({ events, spinner, checkInDate }) {
   }, [events]);
   const { t } = useTranslation();
 
-
   return (
     <div className="calender-container">
-      <div className="calender-change-date">
-        <input type="month" value={date} onChange={handleChangeDate} />
-      </div> */}
-
       <div className="calender-main">
-        {spinner ? <Spinner /> :
+        {spinner ? (
+          <Spinner />
+        ) : (
           <Calendar
             localizer={localizer}
             events={allEvents}
-            startAccessor='start'
-            endAccessor='end'
+            startAccessor="start"
+            endAccessor="end"
             date={date}
             onNavigate={(date) => {
               setDate(date);
