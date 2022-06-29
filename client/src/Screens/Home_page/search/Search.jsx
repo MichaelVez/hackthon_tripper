@@ -1,12 +1,14 @@
 import React from "react";
 import "./search.css";
+import { useTranslation } from "react-i18next";
 
 export default function Search() {
+  const { t } = useTranslation();
   return (
     <div className="search-container">
       <SearchInput searchTerm={"Country"} />
-      <SearchInput searchTerm={"Date"} check={"Check In:  "} />
-      <SearchInput searchTerm={"Date"} check={"Check Out:  "} />
+      <SearchInput searchTerm={"Date"} check={t("Checkin.1")} />
+      <SearchInput searchTerm={"Date"} check={t("Checkout.1")} />
     </div>
   );
 }
