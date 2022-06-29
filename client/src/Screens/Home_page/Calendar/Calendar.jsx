@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
@@ -22,11 +22,11 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const initialDate = `${new Date().getFullYear().toString()}-0${(
-  new Date().getMonth() + 1
-).toString()}`;
+const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
 
-function CalendarEvents({ events, spinner }) {
+
+
+function CalendarEvents({ events, spinner, checkInDate }) {
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
@@ -38,38 +38,39 @@ function CalendarEvents({ events, spinner }) {
   };
 
   // Choose Date
-  const handleChangeDate = ({ target: { value } }) => {
-    setDate(value);
-  };
+  useEffect(() => {
+    setDate(checkInDate);
+
+  }, [checkInDate]);
+
 
   useEffect(() => {
     const eventsFormatCalendar = events.map((event) => {
       return {
         title: event.name,
-        link: "benny",
+        link: event.link,
         start: new Date(event.date),
         end: new Date(event.date),
       };
     });
-    console.log(eventsFormatCalendar);
     setAllEvents(eventsFormatCalendar);
   }, [events]);
   const { t } = useTranslation();
+
 
   return (
     <div className="calender-container">
       <div className="calender-change-date">
         <input type="month" value={date} onChange={handleChangeDate} />
-      </div>
+      </div> */}
+
       <div className="calender-main">
-        {spinner ? (
-          <Spinner />
-        ) : (
+        {spinner ? <Spinner /> :
           <Calendar
             localizer={localizer}
             events={allEvents}
-            startAccessor="start"
-            endAccessor="end"
+            startAccessor='start'
+            endAccessor='end'
             date={date}
             onNavigate={(date) => {
               setDate(date);
