@@ -21,6 +21,7 @@ export default function HomePage() {
     try {
       setSpinner(true)
       const { data } = await apiAPI.post("/holydays", searchObj);
+  
       setSpinner(false)
       // console.log(data);
       data.events.shift()
