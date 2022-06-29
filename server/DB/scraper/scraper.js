@@ -5,7 +5,7 @@ const moment = require("moment");
 
 // * Crawller to fetch event data
 async function crawllerEventsPerCountry(countryArg) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(`https://www.timeanddate.com/holidays/${countryArg}/`);
 
