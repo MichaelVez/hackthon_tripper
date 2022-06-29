@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const URL = `${process.env.MONGODB_URI}`;
 
+console.log(URL);
+
 mongoose.connect(URL, (error, mongoDBInstance) => {
   if (error) {
     console.log(error.message);
@@ -15,7 +17,7 @@ mongoose.connect(URL, (error, mongoDBInstance) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log("listen on port " + PORT);
 });
