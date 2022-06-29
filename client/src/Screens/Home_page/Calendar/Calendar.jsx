@@ -25,7 +25,7 @@ const localizer = dateFnsLocalizer({
 
 const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
 
-function CalendarEvents({ events, spinner, checkInDate, countryName }) {
+function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerUp }) {
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
@@ -38,7 +38,11 @@ function CalendarEvents({ events, spinner, checkInDate, countryName }) {
       eventId: event.eventID,
       eventLink: event.link,
     };
+    setSpinnerUp(true)
     const { data } = await apiAPI.post("/events", obj);
+    if(!data || data.error) return setSpinnerUp(false);
+    setSpinnerUp(false)
+    
     console.log(data);
     navigate(`/event`, { state: data });
   };
