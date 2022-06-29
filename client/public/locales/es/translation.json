@@ -5,6 +5,9 @@
   "Checkout": {
     "1": "verificar"
   },
+  "findevent": {
+    "1": "encontrar evento"
+  },
   "navbar": {
     "homepage": "Hogar",
     "login": "iniciar sesión",

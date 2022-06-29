@@ -5,6 +5,9 @@
   "Checkout": {
     "1": "Check out"
   },
+  "findevent": {
+    "1": "Find event"
+  },
   "navbar": {
     "homepage": "Home",
     "login": "Log in",
