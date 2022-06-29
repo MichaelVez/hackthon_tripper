@@ -41,6 +41,8 @@ function addCountryToDB(tableRow, countryArg) {
     }
   });
 
+  // countryDocument.shift();
+
   return countryDocument;
 }
 

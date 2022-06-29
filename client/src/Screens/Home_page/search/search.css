@@ -24,3 +24,13 @@
 .searchByCountry {
   border: 1px solid black;
 } */
+.submit-search-contianer {
+  position: relative;
+}
+
+.error-search-message {
+  position: absolute;
+  width: 200px;
+  left: -5rem;
+  color: red;
+}
