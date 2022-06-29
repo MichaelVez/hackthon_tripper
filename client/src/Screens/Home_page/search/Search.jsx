@@ -91,6 +91,7 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
     inputValue(value.toLowerCase(), id);
   };
 
+  const { t } = useTranslation();
   return (
     <div className="ui category search">
       <div className="ui icon input date-container">
@@ -98,7 +99,7 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
         <input
           id={id}
           type={type}
-          placeholder={`Search ${searchTerm}...`}
+          placeholder={`${t("search.1")}...`}
           value={value}
           onChange={onChange}
         />
