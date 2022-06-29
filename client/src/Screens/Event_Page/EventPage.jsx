@@ -2,9 +2,13 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
+import { useParams } from "react-router-dom";
+
+
 function EventPage() {
   const [inputState, setInputState] = useState("");
   const [commentsState, setCommentsState] = useState(["comment"]);
+  const { id } = useParams();
   const ref = useRef();
   const Holiday = ({ title }) => {
     return <h2 className='holidayTitle ui header'>{title}</h2>;
@@ -18,12 +22,14 @@ function EventPage() {
   };
   const ImageComp = () => {
     return (
+      <div class="ui segment">
       <div className='holidayImage'>
         <img
           className='ui big rounded image'
           src='https://c.tadst.com/gfx/750w/fireworks-in-the-sky.jpg'
           alt=''
         />
+      </div>
       </div>
     );
   };
@@ -86,7 +92,7 @@ function EventPage() {
       </div>
       <ImageComp />
       <Description />
-      <LikeComponent />
+      {/* <LikeComponent /> */}
       <BlogComp />
       {/* {location.state} */}
     </div>

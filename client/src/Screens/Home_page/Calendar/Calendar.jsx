@@ -34,7 +34,7 @@ function CalendarEvents({ events, spinner, checkInDate, countryName }) {
   // Click Event/Holiday
   const handleClickEvent = (event) => {
     console.log(event);
-    navigate("/event", { state: { event } });
+    navigate(`/event/${event.eventID}`);
   };
 
   // Choose Date
