@@ -12,8 +12,12 @@ function EventPage() {
 
   const ref = useRef();
   const Holiday = () => {
-    return <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>;
-  };
+    return( 
+    <div>
+      <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>
+    </div>
+    );
+}
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
@@ -24,7 +28,7 @@ function EventPage() {
   const Flag = () => {
     return (
       <div className="holidayFlag">
-        <img src="https://c.tadst.com/gfx/n/fl/48/fi.png" alt="" />
+        <img src={location.state.flag && location.state.flag} alt="" />
       </div>
     );
   };
