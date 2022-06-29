@@ -15,7 +15,24 @@
     "homepage": "Hogar",
     "login": "iniciar sesión",
     "signup": "inscribirse",
-    "events": "eventos"
+    "events": "eventos",
+    "logout": "cerrar sesión",
+    "welcome": "bienvenidos/bienvenidas"
+  },
+  "blog": {
+    "event": "Descripción del evento:",
+    "Description": "El día de Año Nuevo, que es el 1 de enero, marca el comienzo del año en el calendario gregoriano y es un día festivo en muchos países. Cuenta atrás para el Año Nuevo, sin importar dónde estés.",
+    "comment": "comentario",
+    "commentOnThis": "Comenta sobre esto"
+  },
+  "form": {
+    "firstname": "primer nombre",
+    "lastname": "apellido",
+    "age": "años",
+    "password": "clave",
+    "email": "Email",
+    "Register": "Registrarse",
+    "massage": "Ya tienes una cuenta?"
   },
   "Toolbar": {
     "today": "Este Dia",
