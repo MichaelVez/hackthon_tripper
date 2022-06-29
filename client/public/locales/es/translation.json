@@ -5,6 +5,12 @@
   "Checkout": {
     "1": "verificar"
   },
+  "findevent": {
+    "1": "encontrar evento"
+  },
+  "search": {
+    "1": "Buscar un país"
+  },
   "navbar": {
     "homepage": "Hogar",
     "login": "iniciar sesión",
