@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Spinner from "../../../components/Spinner/Spinner"
 
 import "./Calendar.css";
 import RBCToolbar from "./toolbar/toolbar";
@@ -25,14 +27,15 @@ const localizer = dateFnsLocalizer({
 
 const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
 
-function CalendarEvents({events}) {
+
+function CalendarEvents({events, spinner}) {
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
-
+  const navigate = useNavigate();
   
   // Click Event/Holiday
   const handleClickEvent = (event) => {
-    console.log(event);
+    navigate('/event')
   };
 
   // Choose Date
@@ -56,6 +59,8 @@ function CalendarEvents({events}) {
         <input type="month" value={date} onChange={handleChangeDate} />
       </div> */}
       <div className="calender-main">
+        {spinner ? <Spinner /> :
+        
         <Calendar
           localizer={localizer}
           events={allEvents}
@@ -69,7 +74,7 @@ function CalendarEvents({events}) {
             toolbar: RBCToolbar,
           }}
           onSelectEvent={handleClickEvent}
-        />
+        />}
       </div>
     </div>
   );
