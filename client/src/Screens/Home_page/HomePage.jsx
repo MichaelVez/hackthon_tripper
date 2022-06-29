@@ -6,11 +6,14 @@ import { apiAPI } from "../../api/api";
 
 export default function HomePage() {
   const [ events, setEvents ] = useState([]);
+  const [ spinner, setSpinner ] = useState(false);
 
   const handleSearch = async (searchObj) => {
     // console.log(searchObj);
     try {
+      setSpinner(true)
       const { data } = await apiAPI.post("/holydays", searchObj);
+      setSpinner(false)
       // console.log(data);
       data.events.shift()
       setEvents(data.events);
@@ -22,7 +25,7 @@ export default function HomePage() {
   return (
     <div>
       <Search handleSearch={handleSearch} />
-      <CalendarEvents events={events}/>
+      <CalendarEvents spinner={spinner} events={events}/>
       <Recommended />
     </div>
   );

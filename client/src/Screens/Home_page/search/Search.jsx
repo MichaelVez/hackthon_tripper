@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./search.css";
 import { useTranslation } from "react-i18next";
 
@@ -32,16 +32,6 @@ export default function Search({ handleSearch }) {
   };
 
   return (
-    // <div className="search-container">
-    //   <SearchInput id={"country"} searchTerm={"Country"} inputValue={inputValue} />
-    //   <SearchInput id={"checkin"} searchTerm={"Date"} check={t("Checkin.1")} inputValue={inputValue} />
-    //   <SearchInput id={"checkout"} searchTerm={"Date"} check={t("Checkout.1")} inputValue={inputValue} />
-
-    //   <div className="submit-search-contianer">
-    //     <button onClick={handleClickSearch}>Find Events</button>
-    //     {isErrorSearch && <div className="error-search-message">Please fill all search field</div>}
-    //   </div>
-    // </div>
     <div className="searchBar">
       <div className="ui secondary pointing menu">
         <li className="item">
@@ -70,10 +60,11 @@ function SearchInput({ searchTerm, check, inputValue, id }) {
   const [value, setValue] = useState("");
 
   const onChange = ({ target: { value, id } }) => {
-    setValue(value.toLowerCase());
-    // console.log(value);
-    inputValue(value, id);
+    setValue(value);
+
+    inputValue(value.toLowerCase(), id);
   };
+
 
   return (
 
