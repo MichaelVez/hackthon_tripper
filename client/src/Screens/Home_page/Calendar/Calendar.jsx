@@ -25,7 +25,7 @@ const localizer = dateFnsLocalizer({
 
 const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
 
-function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerUp }) {
+function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerUp, flag }) {
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
@@ -44,7 +44,7 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
     setSpinnerUp(false)
     
     console.log(data);
-    navigate(`/event`, { state: data });
+    navigate(`/event`, { state: {...data, flag} });
   };
 
   // Choose Date
@@ -60,7 +60,7 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
         start: new Date(event.date),
         end: new Date(event.date),
         countryName: countryName,
-        eventID: event._id,
+        eventID: event._id
       };
     });
     setAllEvents(eventsFormatCalendar);
