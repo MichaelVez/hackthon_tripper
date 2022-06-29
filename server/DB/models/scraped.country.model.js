@@ -18,6 +18,12 @@ const countrySchema = new mongoose.Schema({
       type: {
         type: String,
       },
+      image: {
+        type: String,
+      },
+      description: {
+        type: String,
+      },
     },
   ],
 });
