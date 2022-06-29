@@ -8,6 +8,9 @@
   "findevent": {
     "1": "Find event"
   },
+  "search": {
+    "1": "Search For a Country"
+  },
   "navbar": {
     "homepage": "Home",
     "login": "Log in",
