@@ -12,6 +12,7 @@ app.use(cors());
 
 app.use("/users", usersRouter);
 app.use(countryRouter);
+app.use(commentsRouter);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
