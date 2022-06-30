@@ -4,6 +4,9 @@ const countrySchema = new mongoose.Schema({
   country: {
     type: String,
   },
+  flag: {
+    type: String,
+  },
   events: [
     {
       date: {
@@ -16,6 +19,12 @@ const countrySchema = new mongoose.Schema({
         type: String,
       },
       type: {
+        type: String,
+      },
+      image: {
+        type: String,
+      },
+      description: {
         type: String,
       },
     },

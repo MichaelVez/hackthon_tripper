@@ -30,11 +30,13 @@ function App() {
         {token ?
           <>
             <Route path='/event' element={<EventPage />} />
+            <Route path='/event/:id' element={<EventPage />} />
             <Route path='/' exact element={<HomePage />} />
           </>
           :
           <>
             <Route path='/event' element={<EventPage />} />
+            <Route path='/event/:id' element={<EventPage />} />
             <Route path='/' exact element={<HomePage />} />
             <Route path='/signup' exact element={<RegisterPage />} />
             <Route path='/login' exact element={<LoginPage />} />

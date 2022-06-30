@@ -8,6 +8,7 @@ import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Spinner from "../../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
+import { apiAPI } from "../../../api/api";
 import "./Calendar.css";
 
 const locales = {
@@ -22,19 +23,28 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const initialDate = `${new Date().getFullYear().toString()}-0${(
-  new Date().getMonth() + 1
-).toString()}`;
+const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
 
-function CalendarEvents({ events, spinner, checkInDate }) {
+function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerUp, flag }) {
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
 
   // Click Event/Holiday
-  const handleClickEvent = (event) => {
+  const handleClickEvent = async (event) => {
     console.log(event);
-    navigate("/event", { state: { event } });
+    const obj = {
+      countryName: event.countryName,
+      eventId: event.eventID,
+      eventLink: event.link,
+    };
+    setSpinnerUp(true)
+    const { data } = await apiAPI.post("/events", obj);
+    if(!data || data.error) return setSpinnerUp(false);
+    setSpinnerUp(false)
+    
+    console.log(data);
+    navigate(`/event`, { state: {...data, flag} });
   };
 
   // Choose Date
@@ -49,6 +59,8 @@ function CalendarEvents({ events, spinner, checkInDate }) {
         link: event.link,
         start: new Date(event.date),
         end: new Date(event.date),
+        countryName: countryName,
+        eventID: event._id
       };
     });
     setAllEvents(eventsFormatCalendar);

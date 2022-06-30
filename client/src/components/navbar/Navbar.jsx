@@ -29,9 +29,6 @@ export default function Navbar() {
             <NavLink className="item" to="/">
               {t("navbar.homepage")}
             </NavLink>
-            <NavLink className="item" to="/event">
-              {t("navbar.events")}
-            </NavLink>
 
             {token ? (
               <>
