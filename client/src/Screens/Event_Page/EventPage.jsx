@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 
 import { useTranslation } from "react-i18next";
-import { userComment } from "../../api/comment.api";
+import { userComment, allCommentsPerEvent } from "../../api/comment.api";
 import { appContext } from "../../context/appContext";
 
 function EventPage() {
@@ -74,7 +74,11 @@ function EventPage() {
   const handleClick = async (e) => {
     console.log(inputState);
     console.log(eventInfo);
-    const comment  = await userComment(eventInfo._id, {countryName: location.state.countryName, text: inputState},  token);
+    const comment = await userComment(
+      eventInfo._id,
+      { countryName: location.state.countryName, text: inputState },
+      token
+    );
     console.log(comment);
   };
   const BlogComp = () => {

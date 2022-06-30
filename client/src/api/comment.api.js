@@ -1,18 +1,26 @@
-import axios from "axios"
+import axios from "axios";
 
-const baseURL = 'http://localhost:5050/comments';
+const baseURL = "http://localhost:5050/comments";
 
 export const userComment = async (eventID, body, token) => {
   try {
-    const response = await axios.post(`${baseURL}/${eventID}`, body , {
+    const response = await axios.post(`${baseURL}/${eventID}`, body, {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     const comment = response.data;
     return comment;
-
   } catch (err) {
     return err;
   }
-}
+};
+export const allCommentsPerEvent = async (eventID, body) => {
+  try {
+    const { data } = await axios.get(`http://localhost:5050/${eventID}`);
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
