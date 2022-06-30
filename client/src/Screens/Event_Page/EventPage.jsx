@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { Fragment, useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
@@ -9,7 +9,7 @@ import { appContext } from "../../context/appContext";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
-  const [commentsState, setCommentsState] = useState(["comment"]);
+  const [commentsState, setCommentsState] = useState([]);
   const [eventInfo, setEventInfo] = useState({});
   const { token } = useContext(appContext);
 
@@ -24,19 +24,32 @@ function EventPage() {
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
-
   }, []);
 
-  useEffect(()=> {
-    if(Object.keys(eventInfo).length > 0){
+  useEffect(() => {
+    if (Object.keys(eventInfo).length > 0) {
       const allComments = async () => {
         const comments = await allCommentsPerEvent(eventInfo._id);
+        setCommentsState(comments);
         console.log(comments);
-      }
+      };
       allComments();
-
     }
-  },[eventInfo])
+  }, [eventInfo]);
+
+  const generateComments = () => {
+    return commentsState.map((comment) => {
+      return (
+        <Fragment key={comment._id}>
+          <UserCOmment
+            userName={comment.author}
+            time={`Todat at ${Math.ceil(Math.random() * 10)}PM`}
+            commentText={comment.text}
+          />
+        </Fragment>
+      );
+    });
+  };
 
   const { t } = useTranslation();
   const Flag = () => {
@@ -114,12 +127,12 @@ function EventPage() {
         <div className="ui raised segment" style={{ width: "78%", margin: "auto" }}>
           <div className="ui big comments" style={{ margin: "auto" }}>
             <h3 className="ui dividing header">Comments</h3>
-            <UserCOmment userName={"Matt"} time={"Todat at 5PM"} commentText={"Amazing place and great event"} />
-            <UserCOmment
+            {generateComments()}
+            {/* <UserCOmment
               userName={"Shira"}
               time={"Yesterday at 11AM"}
               commentText={"Lovley people and amazing country, best event ever"}
-            />
+            /> */}
           </div>
         </div>
       </>
