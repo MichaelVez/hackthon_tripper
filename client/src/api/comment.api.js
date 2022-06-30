@@ -17,7 +17,8 @@ export const userComment = async (eventID, body, token) => {
 };
 export const allCommentsPerEvent = async (eventID, body) => {
   try {
-    const { data } = await axios.get(`http://localhost:5050/${eventID}`);
+
+    const { data } = await axios.get(`${baseURL}/${eventID}`);
 
     return data;
   } catch (err) {
