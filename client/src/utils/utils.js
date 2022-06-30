@@ -40,6 +40,7 @@ const translateEvents = async (events, to) => {
   }
 };
 const translateText = async (text, to) => {
+  console.log(text);
   const location = "westeurope";
   try {
     const translates = await axios({
@@ -63,7 +64,7 @@ const translateText = async (text, to) => {
       ],
       responseType: "json",
     });
-    return text;
+    return translates.data[0].translations[0].text;
   } catch (error) {
     console.log("error");
   }
