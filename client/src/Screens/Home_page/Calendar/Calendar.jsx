@@ -32,7 +32,6 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
 
   // Click Event/Holiday
   const handleClickEvent = async (event) => {
-    console.log(event);
     const obj = {
       countryName: event.countryName,
       eventId: event.eventID,
@@ -44,7 +43,7 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
     setSpinnerUp(false)
     
     console.log(data);
-    navigate(`/event`, { state: {...data, flag} });
+    navigate(`/event`, { state: {...data,countryName: event.countryName,  flag} });
   };
 
   // Choose Date

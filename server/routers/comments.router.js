@@ -4,13 +4,16 @@ const auth = require("../middleware/authentication.js");
 
 const router = Router();
 
+// owner: req.body.userId,
 // router.post("/comments", auth, async (req, res) => {
-router.post("/comments", async (req, res) => {
+router.post("/comments/:id", auth, async (req, res) => {
+  const eventID = req.params.id;
+  console.log(req.body);
   const comment = new Comments({
-    owner: req.body.userId,
-    // owner: req.user._id,
+    owner: req.user._id,
     text: req.body.text,
-    event: req.body.countryId,
+    event: eventID,
+    countryName: req.body.countryName
   });
   try {
     await comment.save();

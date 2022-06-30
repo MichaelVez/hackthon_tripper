@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 
 import { useTranslation } from "react-i18next";
+import { userComment } from "../../api/comment.api";
+import { appContext } from "../../context/appContext";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
   const [commentsState, setCommentsState] = useState(["comment"]);
   const [eventInfo, setEventInfo] = useState({});
+  const { token } = useContext(appContext);
 
   const ref = useRef();
   const Holiday = () => {
@@ -31,6 +34,7 @@ function EventPage() {
       </div>
     );
   };
+
   const ImageComp = () => {
     return (
       <div class="ui segment">
@@ -62,12 +66,16 @@ function EventPage() {
       </div>
     );
   };
+
   const handleChange = async (e) => {
     await setInputState(e.target.value);
     ref.current.focus();
   };
   const handleClick = async (e) => {
     console.log(inputState);
+    console.log(eventInfo);
+    const comment  = await userComment(eventInfo._id, {countryName: location.state.countryName, text: inputState},  token);
+    console.log(comment);
   };
   const BlogComp = () => {
     return (
