@@ -6,6 +6,8 @@ import "./eventPage.css";
 import { useTranslation } from "react-i18next";
 import { userComment, allCommentsPerEvent } from "../../api/comment.api";
 import { appContext } from "../../context/appContext";
+import i18next from "i18next";
+import { translateText } from "../../utils/utils";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
@@ -17,26 +19,26 @@ function EventPage() {
   const Holiday = () => {
     return (
       <div>
-        <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>
+        <h2 className="holidayTitle ui header">
+          {Object.keys(eventInfo).length > 0 && eventInfo.name}
+        </h2>
       </div>
     );
   };
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
-
   }, []);
 
-  useEffect(()=> {
-    if(Object.keys(eventInfo).length > 0){
+  useEffect(() => {
+    if (Object.keys(eventInfo).length > 0) {
       const allComments = async () => {
         const comments = await allCommentsPerEvent(eventInfo._id);
         console.log(comments);
-      }
+      };
       allComments();
-
     }
-  },[eventInfo])
+  }, [eventInfo]);
 
   const { t } = useTranslation();
   const Flag = () => {
@@ -51,17 +53,33 @@ function EventPage() {
     return (
       <div class="ui segment">
         <div className="holidayImage">
-          <img className="ui big rounded image" src={Object.keys(eventInfo).length > 0 && eventInfo.image} alt="" />
+          <img
+            className="ui big rounded image"
+            src={Object.keys(eventInfo).length > 0 && eventInfo.image}
+            alt=""
+          />
         </div>
       </div>
     );
   };
 
   const Description = () => {
+    const [description, setDescription] = useState("");
+    useEffect(() => {
+      const translateDescription = async () => {
+        const description = await translateText(
+          eventInfo.description,
+          i18next.language
+        );
+        setDescription(description);
+      };
+      translateDescription();
+    }, [i18next.language]);
+
     return (
       <div className="holidayDescription">
         <div class="ui raised segment">
-          <p>{Object.keys(eventInfo).length > 0 && eventInfo.description}</p>
+          <p>{Object.keys(eventInfo).length > 0 && description}</p>
         </div>
       </div>
     );
@@ -74,7 +92,9 @@ function EventPage() {
           <i className="heart icon"></i> Like
         </div>
 
-        <a className="ui basic red left pointing label">{Math.floor(Math.random() * 1000)}</a>
+        <a className="ui basic red left pointing label">
+          {Math.floor(Math.random() * 1000)}
+        </a>
       </div>
     );
   };
@@ -107,14 +127,21 @@ function EventPage() {
               placeholder={t("blog.commentOnThis")}
             />
             <button className="ui button" onClick={handleClick}>
-              Comment
+              {t("blog.comment")}
             </button>
           </div>
         </div>
-        <div className="ui raised segment" style={{ width: "78%", margin: "auto" }}>
+        <div
+          className="ui raised segment"
+          style={{ width: "78%", margin: "auto" }}
+        >
           <div className="ui big comments" style={{ margin: "auto" }}>
             <h3 className="ui dividing header">Comments</h3>
-            <UserCOmment userName={"Matt"} time={"Todat at 5PM"} commentText={"Amazing place and great event"} />
+            <UserCOmment
+              userName={"Matt"}
+              time={"Today at 5PM"}
+              commentText={"Amazing place and great event"}
+            />
             <UserCOmment
               userName={"Shira"}
               time={"Yesterday at 11AM"}
@@ -145,7 +172,10 @@ function EventPage() {
 
 function UserCOmment({ userName, time, commentText }) {
   return (
-    <div className="comment" style={{ borderBottom: "1px solid rgba(34, 36, 38, 0.15)" }}>
+    <div
+      className="comment"
+      style={{ borderBottom: "1px solid rgba(34, 36, 38, 0.15)" }}
+    >
       <div className="content">
         <a className="author">{userName}</a>
         <div className="metadata">
