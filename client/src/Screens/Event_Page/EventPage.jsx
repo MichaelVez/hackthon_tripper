@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./eventPage.css";
 
 import { useTranslation } from "react-i18next";
+import { userComment, allCommentsPerEvent } from "../../api/comment.api";
+import { appContext } from "../../context/appContext";
 
 function EventPage() {
   const [inputState, setInputState] = useState("");
   const [commentsState, setCommentsState] = useState(["comment"]);
   const [eventInfo, setEventInfo] = useState({});
+  const { token } = useContext(appContext);
 
   const ref = useRef();
   const Holiday = () => {
@@ -21,7 +24,19 @@ function EventPage() {
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
+
   }, []);
+
+  useEffect(()=> {
+    if(Object.keys(eventInfo).length > 0){
+      const allComments = async () => {
+        const comments = await allCommentsPerEvent(eventInfo._id);
+        console.log(comments);
+      }
+      allComments();
+
+    }
+  },[eventInfo])
 
   const { t } = useTranslation();
   const Flag = () => {
@@ -31,6 +46,7 @@ function EventPage() {
       </div>
     );
   };
+
   const ImageComp = () => {
     return (
       <div class="ui segment">
@@ -62,12 +78,20 @@ function EventPage() {
       </div>
     );
   };
+
   const handleChange = async (e) => {
     await setInputState(e.target.value);
     ref.current.focus();
   };
   const handleClick = async (e) => {
     console.log(inputState);
+    console.log(eventInfo);
+    const comment = await userComment(
+      eventInfo._id,
+      { countryName: location.state.countryName, text: inputState },
+      token
+    );
+    console.log(comment);
   };
   const BlogComp = () => {
     return (

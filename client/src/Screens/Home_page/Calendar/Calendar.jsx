@@ -10,8 +10,6 @@ import Spinner from "../../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import { apiAPI } from "../../../api/api";
 import "./Calendar.css";
-import i18next from "i18next";
-import { translateEvents } from "../../../utils/utils";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -40,10 +38,9 @@ function CalendarEvents({
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
-  useEffect(() => {}, [i18next.language]);
+
   // Click Event/Holiday
   const handleClickEvent = async (event) => {
-    console.log(event);
     const obj = {
       countryName: event.countryName,
       eventId: event.eventID,
@@ -55,8 +52,11 @@ function CalendarEvents({
     setSpinnerUp(false);
 
     console.log(data);
-    navigate(`/event`, { state: { ...data, flag } });
+    navigate(`/event`, {
+      state: { ...data, countryName: event.countryName, flag },
+    });
   };
+
   // Choose Date
   useEffect(() => {
     setDate(checkInDate);
