@@ -46,15 +46,6 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 }
 
-// userSchema.statics.findByCredentials = async function (email, password) {
-//   const user = await User.findOne({email});
-//   if(!user) return false;
-
-//   const isMatch = await bcryptjs.compare(password, user.password);
-//   if(!isMatch) return false;
-
-//   return user;
-// }
 
 async function hashPasswordBeforeSaving(next) {
   const user = this;

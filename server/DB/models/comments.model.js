@@ -15,6 +15,14 @@ const commentsSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
+    author: {
+      type: String,
+      require: true
+    },
+    countryName: {
+      type: String,
+      require: true
+    }
   },
   { timestamps: true }
 );
