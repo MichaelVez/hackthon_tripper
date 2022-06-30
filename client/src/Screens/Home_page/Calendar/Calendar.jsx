@@ -10,7 +10,8 @@ import Spinner from "../../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import { apiAPI } from "../../../api/api";
 import "./Calendar.css";
-
+import { translateEvents } from "../../../utils/utils";
+import i18next from "i18next";
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
 };
