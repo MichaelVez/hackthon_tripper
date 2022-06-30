@@ -4,14 +4,16 @@ const commentsSchema = new mongoose.Schema(
   {
     text: {
       type: String,
+      require: true,
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      require: true,
     },
     event: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Country",
+      require: true,
     },
   },
   { timestamps: true }
