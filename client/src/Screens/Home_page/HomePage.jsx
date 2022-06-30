@@ -46,7 +46,7 @@ export default function HomePage() {
         events={events}
         setSpinnerUp={setSpinnerUp}
       />
-      <Recommended />
+      {/* <Recommended /> */}
     </div>
   );
 }

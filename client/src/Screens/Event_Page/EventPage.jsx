@@ -62,6 +62,7 @@ function EventPage() {
       </div>
     );
   };
+
   const handleChange = async (e) => {
     await setInputState(e.target.value);
     ref.current.focus();
