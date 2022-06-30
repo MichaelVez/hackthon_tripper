@@ -12,17 +12,16 @@ function EventPage() {
 
   const ref = useRef();
   const Holiday = () => {
-    return( 
-    <div>
-      <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>
-    </div>
+    return (
+      <div>
+        <h2 className="holidayTitle ui header">{Object.keys(eventInfo).length > 0 && eventInfo.name}</h2>
+      </div>
     );
-}
+  };
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
   }, []);
-
 
   const { t } = useTranslation();
   const Flag = () => {
@@ -58,7 +57,8 @@ function EventPage() {
         <div className="ui red button">
           <i className="heart icon"></i> Like
         </div>
-        <a className="ui basic red left pointing label">1,048</a>
+
+        <a className="ui basic red left pointing label">{Math.floor(Math.random() * 1000)}</a>
       </div>
     );
   };
@@ -71,20 +71,34 @@ function EventPage() {
   };
   const BlogComp = () => {
     return (
-      <div className="ui input holidayBlog">
-        <div className="ui action input">
-          <input
-            type="text"
-            onChange={handleChange}
-            value={inputState}
-            ref={ref}
-            placeholder={t("blog.commentOnThis")}
-          />
-          <button className="ui button" onClick={handleClick}>
-            Comment
-          </button>
+      <>
+        <div className="ui input holidayBlog">
+          <div className="ui action input ">
+            <input
+              style={{ width: "50vw" }}
+              type="text"
+              onChange={handleChange}
+              value={inputState}
+              ref={ref}
+              placeholder={t("blog.commentOnThis")}
+            />
+            <button className="ui button" onClick={handleClick}>
+              Comment
+            </button>
+          </div>
         </div>
-      </div>
+        <div className="ui raised segment" style={{ width: "78%", margin: "auto" }}>
+          <div className="ui big comments" style={{ margin: "auto" }}>
+            <h3 className="ui dividing header">Comments</h3>
+            <UserCOmment userName={"Matt"} time={"Todat at 5PM"} commentText={"Amazing place and great event"} />
+            <UserCOmment
+              userName={"Shira"}
+              time={"Yesterday at 11AM"}
+              commentText={"Lovley people and amazing country, best event ever"}
+            />
+          </div>
+        </div>
+      </>
     );
   };
   const location = useLocation();
@@ -101,6 +115,20 @@ function EventPage() {
       <LikeComponent />
       <BlogComp />
       {/* {location.state} */}
+    </div>
+  );
+}
+
+function UserCOmment({ userName, time, commentText }) {
+  return (
+    <div className="comment" style={{ borderBottom: "1px solid rgba(34, 36, 38, 0.15)" }}>
+      <div className="content">
+        <a className="author">{userName}</a>
+        <div className="metadata">
+          <span className="date">{time}</span>
+        </div>
+        <div className="text">{commentText}</div>
+      </div>
     </div>
   );
 }
