@@ -24,7 +24,19 @@ function EventPage() {
 
   useEffect(() => {
     setEventInfo(location.state.events[0]);
+
   }, []);
+
+  useEffect(()=> {
+    if(Object.keys(eventInfo).length > 0){
+      const allComments = async () => {
+        const comments = await allCommentsPerEvent(eventInfo._id);
+        console.log(comments);
+      }
+      allComments();
+
+    }
+  },[eventInfo])
 
   const { t } = useTranslation();
   const Flag = () => {
