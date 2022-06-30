@@ -10,6 +10,8 @@ import Spinner from "../../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import { apiAPI } from "../../../api/api";
 import "./Calendar.css";
+import i18next from "i18next";
+import { translateEvents } from "../../../utils/utils";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -23,13 +25,22 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const initialDate = `${new Date().getFullYear().toString()}-0${(new Date().getMonth() + 1).toString()}`;
+const initialDate = `${new Date().getFullYear().toString()}-0${(
+  new Date().getMonth() + 1
+).toString()}`;
 
-function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerUp, flag }) {
+function CalendarEvents({
+  events,
+  spinner,
+  checkInDate,
+  countryName,
+  setSpinnerUp,
+  flag,
+}) {
   let navigate = useNavigate();
   const [allEvents, setAllEvents] = useState([]);
   const [date, setDate] = useState(initialDate);
-
+  useEffect(() => {}, [i18next.language]);
   // Click Event/Holiday
   const handleClickEvent = async (event) => {
     console.log(event);
@@ -38,15 +49,14 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
       eventId: event.eventID,
       eventLink: event.link,
     };
-    setSpinnerUp(true)
+    setSpinnerUp(true);
     const { data } = await apiAPI.post("/events", obj);
-    if(!data || data.error) return setSpinnerUp(false);
-    setSpinnerUp(false)
-    
-    console.log(data);
-    navigate(`/event`, { state: {...data, flag} });
-  };
+    if (!data || data.error) return setSpinnerUp(false);
+    setSpinnerUp(false);
 
+    console.log(data);
+    navigate(`/event`, { state: { ...data, flag } });
+  };
   // Choose Date
   useEffect(() => {
     setDate(checkInDate);
@@ -60,11 +70,20 @@ function CalendarEvents({ events, spinner, checkInDate, countryName, setSpinnerU
         start: new Date(event.date),
         end: new Date(event.date),
         countryName: countryName,
-        eventID: event._id
+        eventID: event._id,
       };
     });
-    setAllEvents(eventsFormatCalendar);
-  }, [events]);
+    if (eventsFormatCalendar.length > 0) {
+      const translate = async () => {
+        const response = await translateEvents(
+          eventsFormatCalendar,
+          i18next.language
+        );
+        setAllEvents(response);
+      };
+      translate();
+    }
+  }, [events, i18next.language]);
   const { t } = useTranslation();
 
   return (
